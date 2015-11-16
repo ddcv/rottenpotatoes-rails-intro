@@ -4,6 +4,10 @@ class MoviesController < ApplicationController
     params.require(:movie).permit(:title, :rating, :description, :release_date)
   end
 
+  def defaults
+	defaults = {'G': 1, 'PG': 1, 'PG-13': 1, 'R': 1}
+  end
+
   def show
     id = params[:id] # retrieve movie ID from URI route
     @movie = Movie.find(id) # look up movie by unique ID
@@ -11,14 +15,32 @@ class MoviesController < ApplicationController
   end
 
   def index
-	defaults = {'ratings': {'G': 1, 'PG': 1, 'PG-13': 1, 'R': 1}}
-	params.replace(defaults.merge(params))
+		if params[:sorter].nil?
+			if session[:sorter].nil?
+				sorter = 'title'
+			end
+			sorter = session[:sorter]
+		else
+			sorter = params[:sorter]
+			session[:sorter] = sorter
+		end
+		if params[:ratings].nil?
+			if session[:ratings].nil?
+				session[:ratings] = defaults
+			end
+			visible_ratings = session[:ratings]
+		else
+			visible_ratings = params[:ratings]
+			session[:ratings] = visible_ratings	
+		end
+#		redirect_to movies_path(:sorter =>sorter, :ratings => visible_ratings)
 	@all_ratings = Movie.all_ratings
-	sorter = params[:sorter]
-	@visible_ratings = params[:ratings].keys
+
+	@visible_ratings = visible_ratings.keys
+#	session[:visible_ratings] = @visible_ratings
 	flash[:notice] = "Movies sorted by #{sorter} #{@visible_ratings}"
-#	@movies = Movie.all.order(sorter)
 	@movies = Movie.where('rating' => @visible_ratings).order(sorter)
+
   end
 
   def new

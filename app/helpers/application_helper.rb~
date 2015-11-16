@@ -7,7 +7,7 @@ module ApplicationHelper
 	end
   end
 
-  def release_date_header_class
+  def rd_header_class
 	if params[:sorter] == "release_date"
 		'hilite'
 	else

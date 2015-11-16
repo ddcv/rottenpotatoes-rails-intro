@@ -1,6 +1,6 @@
 module ApplicationHelper
   def movie_header_class
-	if params[:sorter] == "title"
+	if session[:sorter] == "title"
 		'hilite'
 	else
 		''
@@ -8,7 +8,7 @@ module ApplicationHelper
   end
 
   def rd_header_class
-	if params[:sorter] == "release_date"
+	if session[:sorter] == "release_date"
 		'hilite'
 	else
 		''

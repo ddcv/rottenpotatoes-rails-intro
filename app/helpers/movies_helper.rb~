@@ -1,0 +1,22 @@
+module MoviesHelper
+  # Checks if a number is odd:
+  def oddness(count)
+    count.odd? ?  "odd" :  "even"
+  end
+
+  def movie_header_class
+	if params[:sorter] == "title"
+		'hilite'
+	else
+		''
+	end
+  end
+
+  def release_date_header_class
+	if params[:sorter] == "release_date"
+		'hilite'
+	else
+		''
+	end
+  end
+end

@@ -16,7 +16,7 @@ class MoviesController < ApplicationController
 	@all_ratings = Movie.all_ratings
 	sorter = params[:sorter]
 	@visible_ratings = params[:ratings].keys
-	flash[:notice] = "Movies sorted by #{sorter} #{@visible_ratings}"
+	flash[:notice] = "Movies sorted by #{sorter} #{visible_ratings}"
 #	@movies = Movie.all.order(sorter)
 	@movies = Movie.where('rating' => @visible_ratings).order(sorter)
   end

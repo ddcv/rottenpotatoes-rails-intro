@@ -1,5 +1,5 @@
 module ApplicationHelper
-  def movie_header_class
+  def title_header_class
 	if session[:sorter] == "title"
 		'hilite'
 	else

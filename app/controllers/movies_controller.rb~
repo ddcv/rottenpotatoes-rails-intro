@@ -36,7 +36,7 @@ class MoviesController < ApplicationController
 #		redirect_to movies_path(:sorter =>sorter, :ratings => visible_ratings)
 	@all_ratings = Movie.all_ratings
 
-	@visible_ratings = visible_ratings.keys
+	@visible_ratings = params[:ratings].keys
 #	session[:visible_ratings] = @visible_ratings
 	flash[:notice] = "Movies sorted by #{params[:sorter]} #{@visible_ratings}"
 	@movies = Movie.where('rating' => @visible_ratings).order(sorter)

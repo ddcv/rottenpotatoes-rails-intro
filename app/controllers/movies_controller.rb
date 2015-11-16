@@ -38,7 +38,7 @@ class MoviesController < ApplicationController
 
 	@visible_ratings = visible_ratings.keys
 #	session[:visible_ratings] = @visible_ratings
-	flash[:notice] = "Movies sorted by #{sorter} #{@visible_ratings}"
+	flash[:notice] = "Movies sorted by #{params[:sorter]} #{@visible_ratings}"
 	@movies = Movie.where('rating' => @visible_ratings).order(sorter)
 
   end
